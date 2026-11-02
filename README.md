@@ -72,30 +72,7 @@ coverage.
 
 ### Jetson Orin Nano
 
-PyPI does not have a usable `tensorflow` wheel for Jetson Linux. Install
-NVIDIA's build, matching the L4T release from `/etc/nv_tegra_release`:
-
-```bash
-# JetPack 5.x (L4T 35.x)
-pip install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v512 tensorflow==2.15.0
-
-# JetPack 6.x (L4T 36.x)
-pip install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v61 tensorflow
-```
-
-Confirm the GPU is visible and the build is CUDA-enabled before training:
-
-```bash
-python3 -c "
-import tensorflow as tf
-print(tf.__version__)
-print(tf.config.list_physical_devices('GPU'))
-print(tf.sysconfig.get_build_info()['is_cuda_build'])
-"
-```
-
-Exact wheel versions move between JetPack point releases. Check NVIDIA's
-Jetson Zoo compatibility table rather than trusting a pinned number.
+I tried it, just unzipping the images took 6+ hours. Overall it fell on its face. Just don't do it. 
 
 ## Training
 
@@ -144,7 +121,6 @@ apply it inconsistently.
 
 | Hardware | Time per epoch | 60-epoch wall time |
 | --- | --- | --- |
-| Orin Nano 8 GB, fp16 | ~1 to 2 min | ~1 to 2 h |
 | Desktop CPU, oneDNN | ~2 to 5 min | ~2 to 5 h |
 | Kaggle GPU (T4 or P100) | ~25 to 40 s | ~25 to 40 min |
 
